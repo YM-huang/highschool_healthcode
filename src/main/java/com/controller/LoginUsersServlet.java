@@ -1,7 +1,6 @@
 package com.controller;
 
-import com.dao.SchoolDao;
-import com.model.Admin;
+import com.dao.HealthCodeDao;
 import com.model.Student;
 import com.model.Teacher;
 
@@ -17,38 +16,45 @@ import java.io.IOException;
 public class LoginUsersServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String type = request.getParameter("type");
+        request.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html;charset=UTF-8");
+        String name = request.getParameter("name");
+//        System.out.println(name);
         String school_id = request.getParameter("school_id");
-        String password = request.getParameter("password");
-        request.setAttribute("school_id",school_id);
-        request.setAttribute("pass",password);
-        if(type.equals("teacher")){
-            SchoolDao dao = new SchoolDao();
-            Teacher teacher = dao.loginTeacher(school_id);
-            if(password.equals(teacher.getTpass().trim())&& teacher.getRole()==1){
-                //进入普通教师界面
-                request.setAttribute("tno",school_id);
-                RequestDispatcher rd = request.getRequestDispatcher("/JSP/Teacher.jsp");
-                rd.forward(request,response);
-            }
-            else if(password.equals(teacher.getTpass().trim())&& teacher.getRole()>1){
-                //进入管理员界面
-                System.out.println("admin");
-                RequestDispatcher rd = request.getRequestDispatcher("/JSP/allAdministrators2.jsp");
-                rd.forward(request,response);
-            }
+//        System.out.println(school_id);
+        String id = request.getParameter("id");
+//        System.out.println(id);
+        HealthCodeDao dao = new HealthCodeDao();
+        Student student = dao.findStudentInfo(school_id);
+        Teacher teacher = dao.findTeacherInfo(school_id);
+//        System.out.println("studentinfo"+student.getName());
+//        System.out.println(student.getId());
+//        System.out.println(student.getSchool_id());
+//        System.out.println("teacherinfo"+teacher.getName());
+//        System.out.println(teacher.getId());
+//        System.out.println(teacher.getSchool_id());
+        request.setAttribute("student",student);
+        request.setAttribute("teacher",teacher);
+        if(student==null && teacher==null){
+//            System.out.println("s1");
+            RequestDispatcher rd = request.getRequestDispatcher("/error.jsp");
+            rd.forward(request,response);
         }
-        else if(type.equals("student")){
-            SchoolDao dao = new SchoolDao();
-            Student student= dao.loginStudent(school_id);
-            if(password.equals(student.getSpwd().trim())){
-                //进入学生界面
-                request.setAttribute("sno",school_id);
-                RequestDispatcher rd = request.getRequestDispatcher("/JSP/Student.jsp");
-                rd.forward(request,response);
-            }
+        else if(student!=null && school_id.equals(student.getSchool_id()) && id.equals(student.getId())){
+//            System.out.println("s2");
+            RequestDispatcher rd = request.getRequestDispatcher("/HealthCode.jsp");
+            rd.forward(request,response);
         }
-
+        else if(teacher!=null && name.equals(teacher.getName()) && id.equals(teacher.getId())){
+//            System.out.println("s3");
+            RequestDispatcher rd = request.getRequestDispatcher("/HealthCode.jsp");
+            rd.forward(request,response);
+        }
+        else{
+//            System.out.println("s4");
+            RequestDispatcher rd = request.getRequestDispatcher("/error.jsp");
+            rd.forward(request,response);
+        }
     }
 
     @Override

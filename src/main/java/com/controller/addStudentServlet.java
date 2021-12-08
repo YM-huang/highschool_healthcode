@@ -1,6 +1,7 @@
 package com.controller;
 
-import com.dao.SchoolDao;
+import com.dao.HealthCodeDao;
+import com.model.Student;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,21 +15,25 @@ import java.io.IOException;
 public class addStudentServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        SchoolDao dao = new SchoolDao();
-        String sno = request.getParameter("sno");
-        String bno = request.getParameter("bno");
-        String mno = request.getParameter("mno");
-        String sname = request.getParameter("sname");
-        String sex = request.getParameter("sex");
-        String sage = request.getParameter("sage");
-        String shome = request.getParameter("shome");
-        String sphone = request.getParameter("sphone");
-        String spoint = request.getParameter("spoint");
-        String spwd = request.getParameter("spwd");
-        int age2 = Integer.parseInt(sage);
-        boolean isSuccess = dao.addStudent(sno,mno,sname,sex,age2,0,spoint,sphone,shome,spwd,bno);
-        RequestDispatcher rd = request.getRequestDispatcher("queryAllStudentServlet");
-        rd.forward(request,response);
+        HealthCodeDao dao = new HealthCodeDao();
+        Student student = new Student();
+        String message = null;
+        try{
+            String college = request.getParameter("college");
+            String major = request.getParameter("major");
+            String class1 = request.getParameter("class1");
+            student.setName(request.getParameter("name"));
+            student.setId(request.getParameter("id"));
+            student.setSchool_id(request.getParameter("school_id"));
+            student.setCollege(request.getParameter("college"));
+            student.setMajor(request.getParameter("major"));
+            student.setClass1(request.getParameter("class1"));
+            boolean success = dao.addStudent(student);
+            RequestDispatcher rd = request.getRequestDispatcher("/StudentQueryServlet?college="+college+"&major="+major+"&class1="+class1+"");
+            rd.forward(request,response);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     @Override

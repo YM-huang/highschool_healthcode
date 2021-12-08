@@ -1,88 +1,93 @@
 package com.model;
 
 public class Teacher {
-    private String tno;
-    private String tname;
-    private String tsex;
-    private int tage;
-    private int role; // 1是教师，大于1是管理员
-    private String tprofess;
-    private String tphone;
-    private String tpass;
-    private String collegeno;
+    private String name;
+    private String id;
+    private String school_id;
+    private String college;//学院
+    private String role;//系统管理员、校级管理员、院级管理员、普通教师
+    private String attendenceRecord;//打卡天数
+    private String password;//各类管理员密码
+    private int healthday;
+    private String healthcode;
+    private String tel;
 
-    public String getCollegeno() {
-        return collegeno;
+    public String getTel() {
+        return tel;
     }
 
-    public void setCollegeno(String collegeno) {
-        this.collegeno = collegeno;
+    public void setTel(String tel) {
+        this.tel = tel;
     }
 
-    public String getTprofess() {
-        return tprofess;
+    public String getHealthcode() {
+        return healthcode;
     }
 
-    public void setTprofess(String tprofess) {
-        this.tprofess = tprofess;
+    public String getPassword() {
+        return password;
     }
 
-    public String getTphone() {
-        return tphone;
+    public int getHealthday() {
+        return healthday;
     }
 
-    public void setTphone(String tphone) {
-        this.tphone = tphone;
+    public String getAttendenceRecord() {
+        return attendenceRecord;
     }
 
-    public Teacher() {
+    public String getSchool_id() {
+        return school_id;
     }
 
-    public int getRole() {
+    public String getCollege() {
+        return college;
+    }
+
+    public String getId() {
+        return id;
+    }
+    public String getName() {
+        return name;
+    }
+
+    public String getRole() {
         return role;
     }
 
-    public void setRole(int role) {
+    public void setHealthcode(String healthcode) {
+        this.healthcode = healthcode;
+    }
+
+    public void setHealthday(int healthday) {
+        this.healthday = healthday;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setAttendenceRecord(String attendenceRecord) {
+        this.attendenceRecord = attendenceRecord;
+    }
+
+    public void setSchool_id(String school_id) {
+        this.school_id = school_id;
+    }
+
+    public void setCollege(String college) {
+        this.college = college;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setRole(String role) {
         this.role = role;
-    }
-
-    public String getTno() {
-        return tno;
-    }
-
-    public void setTno(String tno) {
-        this.tno = tno;
-    }
-
-    public String getTname() {
-        return tname;
-    }
-
-    public void setTname(String tname) {
-        this.tname = tname;
-    }
-
-    public String getTsex() {
-        return tsex;
-    }
-
-    public void setTsex(String tsex) {
-        this.tsex = tsex;
-    }
-
-    public int getTage() {
-        return tage;
-    }
-
-    public void setTage(int tage) {
-        this.tage = tage;
-    }
-
-    public String getTpass() {
-        return tpass;
-    }
-
-    public void setTpass(String tpass) {
-        this.tpass = tpass;
     }
 }

@@ -1,6 +1,8 @@
 package com.controller;
 
-import com.dao.SchoolDao;
+import com.dao.HealthCodeDao;
+import com.model.Student;
+import com.model.Teacher;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,19 +16,23 @@ import java.io.IOException;
 public class addTeacherServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        SchoolDao dao = new SchoolDao();
-        String tno = request.getParameter("tno");
-        String tname = request.getParameter("tname");
-        String tsex = request.getParameter("tsex");
-        String tage = request.getParameter("tage");
-        String tprofess = request.getParameter("tprofess");
-        String tphone = request.getParameter("tphone");
-        String tpass = request.getParameter("tpass");
-        String collegeno = request.getParameter("collegeno");
-        String role = request.getParameter("role");
-        boolean isSuccess = dao.addTeacher(tno,tname,tsex,Integer.parseInt(tage),tprofess,tphone,tpass,Integer.parseInt(role),collegeno);
-        RequestDispatcher rd = request.getRequestDispatcher("queryAllTeacherServlet");
-        rd.forward(request,response);
+        HealthCodeDao dao = new HealthCodeDao();
+        Teacher teacher = new Teacher();
+        String message = null;
+        try{
+            String college = request.getParameter("college");
+            teacher.setName(request.getParameter("name"));
+            teacher.setId(request.getParameter("id"));
+            teacher.setSchool_id(request.getParameter("school_id"));
+            teacher.setCollege(request.getParameter("college"));
+            teacher.setRole(request.getParameter("role"));
+            teacher.setPassword(request.getParameter("password"));
+            boolean success = dao.addTeacher(teacher);
+            RequestDispatcher rd = request.getRequestDispatcher("/TeacherQueryServlet?college="+college+"");
+            rd.forward(request,response);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     @Override

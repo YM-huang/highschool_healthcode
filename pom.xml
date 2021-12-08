@@ -5,9 +5,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com</groupId>
-    <artifactId>database_final_demo</artifactId>
+    <artifactId>final_demo</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>database_final_demo</name>
+    <name>final_demo</name>
     <packaging>war</packaging>
 
     <properties>
